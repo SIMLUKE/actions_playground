@@ -1,0 +1,19 @@
+name: get_repo_size
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: echo branch
+      run: git rev-parse --abbrev-ref HEAD
+    - name: get_size
+      run: git count-objects
+
+    
