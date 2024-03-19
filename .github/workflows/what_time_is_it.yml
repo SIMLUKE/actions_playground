@@ -5,8 +5,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  date:
-    runs-on: ubuntu:latest
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: get_date
-        run: date
+    - name: get_date
+      run: date
