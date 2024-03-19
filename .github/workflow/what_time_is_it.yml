@@ -1,8 +1,11 @@
+name: what_time_is_it
+
 on:
   push:
     branches: [ "main" ]
 
 jobs:
   date:
+    runs_on: ubuntu:latest
     steps:
       run: date
