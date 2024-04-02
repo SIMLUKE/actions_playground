@@ -37,7 +37,7 @@ jobs:
 
   push_to_mirror:
     runs-on: ubuntu-latest
-    if: ${{ GITHUB_EVENT_NAME }} == "push"
+    if: ${{ github.event_name }} == "push"
     needs: check_program_compilation
     steps:
       - uses: actions/checkout@v3
