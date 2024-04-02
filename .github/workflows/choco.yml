@@ -17,9 +17,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run coding style
-      run: check.sh . .
+      run: check.sh $(pwd) (pwd)
+    - name: check coding style for next jobs
+      run: |
+          if [[ -s coding-style-reports.log ]]; then
+            exit 1
+          fi
   check_program_compilation:
     runs-on: ubuntu-latest
+    needs: check_coding_style
     container:
       image: epitechcontent/epitest-docker
     steps:
@@ -28,8 +34,11 @@ jobs:
       run: make
     - name: Run_tests
       run: make tests_run
+
   push_to_mirror:
     runs-on: ubuntu-latest
+    if: ${{ GITHUB_EVENT_NAME }} == "push"
+    needs: check_program_compilation
     steps:
       - uses: actions/checkout@v3
         with:
@@ -37,6 +46,6 @@ jobs:
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url:
-            $MIRROR_URL
+            ${{ env.$MIRROR_URL }}
           ssh_private_key:
             ${{ secrets.GIT_SSH_PRIVATE_KEY }}
