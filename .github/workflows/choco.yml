@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run coding style
-      run: check.sh $(pwd) (pwd)
+      run: check.sh $(pwd) $(pwd)
     - name: check coding style for next jobs
       run: |
           if [[ -s coding-style-reports.log ]]; then
