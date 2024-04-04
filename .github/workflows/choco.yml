@@ -17,9 +17,7 @@ jobs:
     steps:
     - name: exit if mirror
       run: |
-          echo $MIRROR
-          echo $GITHUB_REPOSITORY
-          if [[ env.GITHUB_REPOSITORY == env.MIRROR ]]; then
+          if [[ $GITHUB_REPOSITORY == $MIRROR ]]; then
             exit 1
           fi
   
