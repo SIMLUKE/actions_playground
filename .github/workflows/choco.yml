@@ -13,7 +13,6 @@ env:
 jobs:
   check_coding_style:
     runs-on: ubuntu-latest
-    if: github.repository != env.MIRROR
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
     steps:
