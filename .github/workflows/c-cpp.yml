@@ -1,0 +1,32 @@
+on:
+  push:
+  pull_request:
+
+env:
+  MIROR_URL: loremipsum
+  EXECUTABLES: mysh, asm
+
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+    - name: check-coding-style
+      run: check.sh $(pwd) $(pwd)
+    - name: check_result
+      run: cat coding-style-reports.log
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: make
+    - name: Run_tests
+      run: make tests_run
+  push_to_mirror:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
