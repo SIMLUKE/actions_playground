@@ -29,7 +29,7 @@ jobs:
         while IFS= read -r line
         do
           IFS=':' read -ra error_code <<< "${line[0]}"
-          echo "::error file=${error_code[0]},line=${error_code[1]},title=${error_code[0]} coding style error $error::${error_code[3]}"
+          echo "::error file=${error_code[0]},line=${error_code[1]},title=${error_code[2]} coding style error $error::${error_code[3]}"
         done < coding-style-reports.log
     - name: check coding style for next jobs
       run: |
