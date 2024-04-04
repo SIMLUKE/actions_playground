@@ -28,8 +28,8 @@ jobs:
       run: |
         while IFS= read -r line
         do
-          IFS=':' read -ra error <<< "${line[0]}"
-          echo "::${error[2]} coding style error: ${error[0]} L${error[1]}"
+          IFS=':' read -ra error_code <<< "${line[0]}"
+          echo "::error file=${error_code[0]}, line=${error_code[1]} title=${error_code[0]} coding style error $error::${error_code[3]}"
         done < coding-style-reports.log
     - name: check coding style for next jobs
       run: |
@@ -71,7 +71,7 @@ jobs:
   push_to_mirror:
     runs-on: ubuntu-latest
     if: ${{ github.event_name }} == "push"
-    needs: check_program_compilation
+    needs: run_tests
     steps:
     - name: exit if mirror
       run: |
