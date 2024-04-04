@@ -18,7 +18,7 @@ jobs:
     - name: exit if mirror
       run: |
           if [[ env.GITHUB_REPOSITORY == env.MIRROR ]]; then
-            exit 0
+            exit 1
           fi
   
   check_coding_style:
