@@ -11,17 +11,21 @@ env:
   MIRROR_URL: git@github.com:SIMLUKE/actions_playground_mirror.git
 
 jobs:
+  check_for_mirror:
+    runs-on: ubuntu-latest
+    steps:
+    - name: exit if mirror
+      run: |
+         if [[ $GITHUB_REPOSITORY == $MIRROR ]]; then
+            exit 0
+          fi
+
   check_coding_style:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
     steps:
     - uses: actions/checkout@v4
-    - name: exit if mirror
-      run: |
-          if [[ env.GITHUB_REPOSITORY == env.MIRROR ]]; then
-            exit 0
-          fi
     - name: Run coding style
       run: check.sh $(pwd) $(pwd)
     - name: print errors
@@ -42,11 +46,6 @@ jobs:
     container:
       image: epitechcontent/epitest-docker
     steps:
-    - name: exit if mirror
-      run: |
-          if [[ env.GITHUB_REPOSITORY == env.MIRROR ]]; then
-            exit 0
-          fi
     - uses: actions/checkout@v4
     - name: Build
       run: make
@@ -58,11 +57,6 @@ jobs:
     container:
       image: epitechcontent/epitest-docker
     steps:
-    - name: exit if mirror
-      run: |
-          if [[ env.GITHUB_REPOSITORY == env.MIRROR ]]; then
-            exit 0
-          fi
     - uses: actions/checkout@v4
     - name: Build
       run: make
@@ -74,11 +68,6 @@ jobs:
     if: ${{ github.event_name }} == "push"
     needs: run_tests
     steps:
-    - name: exit if mirror
-      run: |
-          if [[ env.GITHUB_REPOSITORY == env.MIRROR ]]; then
-            exit 0
-          fi
     - uses: actions/checkout@v4
       with:
          fetch-depth: 0
