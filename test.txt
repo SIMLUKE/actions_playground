@@ -1,7 +1,0 @@
-compile_flags.txt
-include
-libs
-Makefile
-src
-tests
-test.txt
